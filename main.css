@@ -7,7 +7,7 @@ body, html {
 
 body {
   font-family: Roboto;
-  font-size: 12px;
+  padding: 1em;
   color: #424242;
 }
 
@@ -18,6 +18,7 @@ h1, h2, h3, h4, h5 {
 header, nav, footer, section, article, div {
   box-sizing: border-box;
   width: 100%;
+  font-size: 16px;
 }
 
 
@@ -26,9 +27,6 @@ ul {
   padding: 0;
   margin: 0;
 }
-
-
-
 
 /*
  *
@@ -42,8 +40,6 @@ ul {
   color: #333;
   text-decoration: none;
 }
-
-
 /*
  *
  * Header
@@ -58,15 +54,13 @@ ul {
 
 .header__inner {
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0px auto 0px auto;
 }
 
 .header__logo {
   height: 72px;
-  margin-right: 1em;
+  margin: 12px 1em 0px 0px;
   vertical-align: top;
-  margin-top: 12px;
 }
 
 .header__title {
@@ -76,28 +70,15 @@ ul {
   display: inline-block;
   color: #212121;
 }
-
-
 /*
  *
  * Top Level Navigation
  *
  */
-
-
-
-
 .nav {
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  /* position: sticky; */
-  top: 0;
-  /* background-color: #F0F0F0; */
-  /* opacity: 0.7; */
-  z-index: 0;
+  margin: 0px auto 0px auto;
   }
-
 
 .nav__list {
   width: 100%;
@@ -113,7 +94,6 @@ ul {
   line-height: 24px;
   padding: 24px;
   text-transform: uppercase;
-
 }
 
 .nav a {
@@ -127,7 +107,6 @@ ul {
   color: #212121;
 }
 
-
 /*
  *
  * Main
@@ -136,10 +115,8 @@ ul {
 
 main {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-  /* width: 800px; */
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0px auto 0px auto;
 }
 
 /*
@@ -155,9 +132,7 @@ main {
  */
 
 .hero {
-  float: left;
-  /* width: 480px; */
-  width: 100%;
+  max-width: 100%;
   position: relative;
   background-image: url("./images/dog.jpg");
   background-size: cover;
@@ -184,12 +159,10 @@ main {
  */
 
 .top-news {
-  float: right;
-  /* width: 320px; */
   width: 100%;
   height: 300px;
-  /* border-bottom: 1px solid #E0E0E0; */
   padding: 1em;
+  /* border-bottom: 1px solid #E0E0E0; */
 }
 
 .news__title {
@@ -232,10 +205,9 @@ main {
  */
 
 .scores {
-  /* width: 480px; */
-  float: left;
   width: 100%;
-  padding-top: 1em;
+  padding: 1em;
+
 }
 
 .scores__table {
@@ -282,7 +254,6 @@ main {
  */
 
 .weather {
-  float: right;
   /* width: 320px; */
   padding: 1em;
   width: 100%;
@@ -341,7 +312,57 @@ main {
 .recent-news {
   clear: both;
   padding: 1em;
+}
 
+.two-lines-max {
+  /* max-height = line-height (1.2) * lines max number (2) */
+  max-height: 2.4em;
+}
+
+.three-lines-max {
+  /* max-height = line-height (1.2) * lines max number (3) */
+  max-height: 3.6em;
+}
+
+.block-with-text {
+  /* hide text if it more than N lines  */
+  overflow: hidden;
+  /* for set '...' in absolute position */
+  position: relative;
+  /* use this value to count block height */
+  line-height: 1.2em;
+  /* max-height = line-height (1.2) * lines max number (3) */
+  /* max-height: 3.6em; */
+  /* fix problem when last visible word doesn't adjoin right side  */
+  text-align: justify;
+  /* place for '...' */
+  margin-right: -1em;
+  padding-right: 1em;
+}
+/* create the ... */
+.block-with-text:before {
+  /* points in the end */
+  content: '...';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of block */
+  right: 0;
+  bottom: 0;
+}
+/* hide ... if we have text, which is less than or equal to max lines */
+.block-with-text:after {
+  /* points in the end */
+  content: '';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of text */
+  right: 0;
+  /* set width and height */
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  /* bg color = bg color under block */
+  background: white;
 }
 
 .snippet {
@@ -400,6 +421,11 @@ main {
   flex-wrap: wrap;
 }
 
+.header__menu {
+  display: none;
+}
+
+
 main > section {
   display: flex;
   flex-wrap: wrap;
@@ -410,32 +436,88 @@ main > section {
 }
 
 
+
+@media screen and (max-width: 649px) {
+    th:first-child, td:first-child {
+    display: none;
+  }
+
+  .snippet__thumbnail {
+    display: none;
+  }
+
+
+  .nav {
+    z-index: 10;
+    background-color: #fff;
+    width: 300px;
+    position: absolute;
+    /* This trasform moves the drawer off canvas. */
+    -webkit-transform: translate(-300px, 0);
+    transform: translate(-300px, 0);
+    /* Optionally, we animate the drawer. */
+    transition: transform 0.3s ease;
+  }
+  .nav.open {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+  .nav__item {
+    display: list-item;
+    border-bottom: 1px solid #E0E0E0;
+    width: 100%;
+    text-align: left;
+  }
+  .header__menu {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    padding: 1em;
+  }
+  .header__menu svg {
+    width: 32px;
+    fill: #E0E0E0;
+  }
+
+  .container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+}
+
 @media screen and (min-width: 650px) {
   .header {
     text-align: center;
   }
 
   .hero {
-    width: 66%;
+    width: 60%;
     order: 1;
   }
 
   .weather {
-    width: 33%;
-    order: 2;
+    width: 100%;
+  }
+
+  #container2 {
+    order: 4;
+    width: 40%;
   }
 
   .top-news {
-    width: 33%;
-    order: 4;
+    width: 40%;
+    order: 2;
   }
 
   .scores {
-    width: 66%;
-    order: 3;
+    width: 100%;
   }
+
   .recent-news {
-    order: 5;
+    order: 3;
+    width: 60%;
   }
 }
 
@@ -446,22 +528,7 @@ main > section {
 
   main {
     width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0px auto 0px auto;
     font-size: 14px;
   }
 }
-
-/*
-
-nav {
-  width: 300px;
-  position: absolute;
-  -webkit-transform: translate(-300px, 0);
-  transform: translate(-300px, 0);
-  transition: transform 0.3s ease;
-}
-nav.open {
-  -webkit-transform: translate(0, 0);
-  transform: translate(0, 0);
-} */
